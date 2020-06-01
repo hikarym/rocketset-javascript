@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Modulo 2</title>
+</head>
+<body>
+    <div id="app"> 
+        <button id="show">Show box</button>
+        <input type="text" name="nome">
+        <button onClick="adicionar()">Adicionar</button>
+    </div>
+    <script>
+        // Ej01: Crie um botão que ao ser clicado cria um novo elemento em tela com a forma de um quadrado
+        // vermelho com 100px de altura e largura. Sempre que o botão for clicado um novo quadrado deve
+        // aparecer na tela.
+        var botaoElement = document.querySelector('#show')
+        var appElement = document.querySelector('#app')
+
+        botaoElement.onclick = function (){            
+            var boxElement = document.createElement('div')
+            boxElement.setAttribute('onmouseover','changeBackgroundColor(this)')
+            boxElement.style.backgroundColor = '#f00'
+            boxElement.style.height = '100px'
+            boxElement.style.width = '100px' 
+            
+            appElement.appendChild(boxElement)              
+        }
+
+        // Ej02: Utilizando o resultado do primeiro desafio, toda vez que o usuário passar o mouse por cima de
+        // algum quadrado troque sua cor para uma cor aleatória gerada pela função abaixo:
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function changeBackgroundColor(element) {
+            console.log(element)
+            var newColor = getRandomColor(); // #E943F0
+
+            element.style.backgroundColor = newColor            
+        }
+        // Ej03: Preencha uma lista (<ul>) no HTML com os itens da seguinte forma:
+        var nomes = ["Diego", "Gabriel", "Lucas"];
+        var listNomesElement = document.createElement('ul')
+        appElement.appendChild(listNomesElement)
+        for (let index = 0; index < nomes.length; index++) {
+            var nomeElement = document.createElement('li')            
+            var textElement = document.createTextNode(nomes[index])            
+            nomeElement.appendChild(textElement)
+            listNomesElement.appendChild(nomeElement)
+        }
+
+        // Ej04: Seguindo o resultado do exercício anterior adicione um input em tela e um botão como a seguir:
+        // <input type="text" name="nome">
+        // <button onClick="adicionar()">Adicionar</button>
+        // Ao clicar no botão, a função adicionar() deve ser disparada adicionando um novo item a lista de
+        // nomes baseado no nome preenchido no input e renderizando o novo item em tela juntos aos
+        // demais itens anteriores. Além disso, o conteúdo do input deve ser apagado após o clique.
+        function adicionar(){
+            var textInputElement = document.querySelector('input[name=nome]')            
+            var nome = textInputElement.value
+            console.log(nome)
+            if (nome != '') {
+                var nomeElement = document.createElement('li')            
+                var textElement = document.createTextNode(nome)       
+                nomeElement.appendChild(textElement)
+                listNomesElement.appendChild(nomeElement)
+                textInputElement.value = ''
+            }
+        }
+
+    </script>
+</body>
+</html>
